@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">PrioriTask</string>
+
+    <string-array name="menu_array">
+        <item>SEMUA DAFTAR</item>
+        <item>HIGH</item>
+        <item>LOW</item>
+        <item>MEDIUM</item>
+
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
