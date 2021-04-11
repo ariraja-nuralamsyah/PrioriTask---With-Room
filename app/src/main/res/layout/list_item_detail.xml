@@ -9,7 +9,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:onClick="onClick2">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,6 +41,17 @@
                 android:text="New Text"
                 android:textSize="20sp"
                 android:layout_marginEnd="22dp" />
+            <TextView
+                android:id="@+id/detailed"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:layout_marginRight="0dp"
+                android:layout_weight="3"
+                android:gravity="right"
+                android:text=">"
+                android:textSize="20sp"
+                android:layout_marginEnd="22dp" />
         </LinearLayout>
 
         <TextView
@@ -49,7 +61,9 @@
             android:layout_weight="3"
             android:text="Description"
             android:textSize="14sp"
-            android:layout_marginStart="40dp" />
+            android:layout_marginStart="40dp"
+            android:id="@+id/textDescription"
+            android:visibility="gone"/>
 
         <EditText
             android:id="@+id/Description"
@@ -67,7 +81,8 @@
             android:maxLines="10"
             android:minLines="6"
             android:scrollbars="vertical"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:visibility="gone"/>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -81,14 +96,16 @@
                 android:layout_weight="3"
                 android:text="VIA :"
                 android:textSize="15sp"
-                android:layout_marginStart="22dp" />
+                android:layout_marginStart="22dp"
+                android:visibility="gone"/>
             <TextView
                 android:id="@+id/textVia"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:text="New Text"
-                android:textSize="15sp"/>
+                android:textSize="15sp"
+                android:visibility="gone"/>
 
             <Button
                 android:id="@+id/level"
@@ -97,14 +114,16 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
                 android:clickable="false"
-                android:text="MEDIUM" />
+                android:text="MEDIUM"
+                android:visibility="gone"/>
             <Button
                 android:id="@+id/submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="DONE"
+                android:text="CHECK"
                 android:layout_marginRight="20dp"
-                android:layout_marginEnd="20dp" />
+                android:layout_marginEnd="20dp"
+                android:visibility="gone"/>
         </LinearLayout>
         <View
             android:layout_width="match_parent"

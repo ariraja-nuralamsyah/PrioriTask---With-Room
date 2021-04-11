@@ -1,8 +1,10 @@
 package com.example.prioritask;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,7 +25,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
     @NonNull
     @Override
     public ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_detail, parent, false);
         return new ListViewHolder(view);
     }
 
@@ -47,6 +49,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
         private EditText desciption;
         private TextView via;
         private TextView level;
+        private Button check;
 
         public ListViewHolder(View itemView){
             super(itemView);
@@ -55,6 +58,16 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
             via = (TextView) itemView.findViewById(R.id.textVia);
             level = (TextView) itemView.findViewById(R.id.level);
             desciption = (EditText) itemView.findViewById(R.id.Description);
+            check = (Button) itemView.findViewById(R.id.submit);
+            check.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(v.getContext(), CheckActivity.class);
+                    i.putExtra("title", tittle.getText().toString());
+                    i.putExtra("description", desciption.getText().toString());
+                    v.getContext().startActivity(i);
+                }
+            });
         }
     }
 }

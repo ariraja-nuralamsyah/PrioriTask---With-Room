@@ -9,14 +9,20 @@ import androidx.fragment.app.ListFragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.animation.LayoutTransition;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.transition.Scene;
+import android.transition.Transition;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -28,6 +34,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private Toolbar toolbar;
     private BottomNavigationView menu_bawah;
     public Button level ;
+    private Scene list_item;
+    private Scene list_item_detail;
+    private Scene currentScene;
+    private Transition transition;
+    private boolean detailClicked = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 loadFragment(new TambahFragment());
             }
         });
-    }
+        }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -86,5 +97,27 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return false;
     }
 
+    public void onClick2(View view){
+        if(detailClicked == false){
+            detailClicked = true;
+            view.findViewById(R.id.detailed).setRotation(90);
+            view.findViewById(R.id.Description).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.textVia).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.level).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.textDescription).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.submit).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.Via).setVisibility(View.VISIBLE);
+        }else{
+            detailClicked = false;
+            view.findViewById(R.id.detailed).setRotation(360);
+            view.findViewById(R.id.Description).setVisibility(View.GONE);
+            view.findViewById(R.id.textVia).setVisibility(View.GONE);
+            view.findViewById(R.id.level).setVisibility(View.GONE);
+            view.findViewById(R.id.textDescription).setVisibility(View.GONE);
+            view.findViewById(R.id.submit).setVisibility(View.GONE);
+            view.findViewById(R.id.Via).setVisibility(View.GONE);
+
+        }
+    }
 
 }
