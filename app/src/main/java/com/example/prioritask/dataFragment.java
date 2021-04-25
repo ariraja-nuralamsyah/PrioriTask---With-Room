@@ -1,14 +1,21 @@
 package com.example.prioritask;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.ListAdapter;
+import androidx.recyclerview.widget.RecyclerView;
+import static android.app.Activity.RESULT_OK;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -28,7 +35,9 @@ public class dataFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     RecyclerView recyclerView;
-    ArrayList<DataTugas> dataHolder;
+    public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
+        ArrayList<DataTugas> dataHolder;
+        private DataTugasViewModel mDataTugasViewModel;
 
     public dataFragment() {
         // Required empty public constructor
@@ -67,20 +76,50 @@ public class dataFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_list, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.listRecyclerView);
+
+        final DataTugasListAdapter adapter = new DataTugasListAdapter(new DataTugasListAdapter.TugasDiff(), view.getContext());
+        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        dataHolder = new ArrayList<>();
 
-        DataTugas obj1 = new DataTugas("PPB","24-05-2021","Email","MEDIUM","07:00","1. Aplikasi Prioritask", "Tugas");
-        dataHolder.add(obj1);
-        DataTugas obj2 = new DataTugas("PPL","25-05-2021","E-Learning","Hard","23:59","1. Mindmap", "Tugas");
-        dataHolder.add(obj2);
-        DataTugas obj3 = new DataTugas("APSI","26-05-2021","Email","Low","23:00","1. Database", "Tugas");
-        dataHolder.add(obj3);
-        DataTugas obj4 = new DataTugas("PPL6","30-05-2021","Presentasi","Low","23:00","1. IOT", "Tugas");
-        dataHolder.add(obj4);
 
-        recyclerView.setAdapter(new ListAdapter(dataHolder));
-
+        mDataTugasViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(DataTugasViewModel.class);
+        mDataTugasViewModel.getAllWords().observe(getViewLifecycleOwner(), words -> {
+            // Update the cached copy of the words in the adapter.
+            adapter.submitList(words);
+        });
+        FloatingActionButton fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener( new View.OnClickListener() {
+            @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getContext(), Tambah_Activity.class);
+                    startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
+            }
+        });
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            DataTugas tugas = new DataTugas(data.getStringExtra(Tambah_Activity.EXTRA_REPLY),
+                    data.getStringExtra("dates"),
+                    data.getStringExtra("via"),
+                    data.getStringExtra("level"),
+                    "23.59",
+                    data.getStringExtra("description"),
+                    data.getStringExtra("status"));
+            mDataTugasViewModel.insert(tugas);
+            Toast.makeText(
+                    getContext(),
+                    tugas.getTittle(),
+                    Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(
+                    getContext(),
+                    R.string.empty_not_saved,
+                    Toast.LENGTH_LONG).show();
+        }
     }
 }

@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.ListFragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.animation.LayoutTransition;
 import android.content.Intent;
@@ -25,6 +28,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -39,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private Scene currentScene;
     private Transition transition;
     private boolean detailClicked = false;
+    public DataTugasListAdapter list;
+    private DataTugasViewModel mDataTugasViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,15 +66,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         loadFragment(new dataFragment());
         menu_bawah = findViewById(R.id.menu_bawah);
         menu_bawah.setOnNavigationItemSelectedListener(this);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loadFragment(new TambahFragment());
-            }
-        });
-        }
+    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -80,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 break;
             case R.id.selesai:
                 //aksi ketika profile di klik
-                fragment = new selesaiFragment();
+                //fragment = new selesaiFragment();
 
                 break;
         }
@@ -120,4 +118,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

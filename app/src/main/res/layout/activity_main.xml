@@ -44,7 +44,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/menu_bawah"
         android:layout_width="match_parent"
@@ -65,19 +64,7 @@
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="67dp"
-        android:rotation="45"
-        app:backgroundTint="#C238EB"
-        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
-        android:contentDescription="Floating"
-        />
+
 
 
 </FrameLayout>

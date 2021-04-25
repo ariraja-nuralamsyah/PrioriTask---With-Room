@@ -1,9 +1,36 @@
 package com.example.prioritask;
 
-public class DataTugas {
-    String tittle, dates, via, level, jam, description, status;
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-    public DataTugas(String tittle, String dates, String via, String level, String jam, String description, String status) {
+@Entity(tableName = "tugas_table")
+public class DataTugas {
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "tittle")
+    String tittle;
+    @NonNull
+    @ColumnInfo(name = "dates")
+    String dates;
+    @NonNull
+    @ColumnInfo(name = "via")
+    String via;
+    @NonNull
+    @ColumnInfo(name = "level")
+    String level;
+    @NonNull
+    @ColumnInfo(name = "jam")
+    String jam;
+    @NonNull
+    @ColumnInfo(name = "description")
+    String description;
+    @NonNull
+    @ColumnInfo(name = "status")
+    String status;
+
+    public DataTugas(@NonNull String tittle, String dates, String via, String level, String jam, String description, String status) {
         this.tittle = tittle;
         this.dates = dates;
         this.via = via;
